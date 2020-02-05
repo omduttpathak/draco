@@ -1,0 +1,37 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: draco
+spec:
+  replicas: 3
+  template:
+   metadata:
+     labels:
+       name: draco
+   spec:
+     containers:
+     - name: draconifi
+       image: ${CICD_IMAGE}:${CICD_EXECUTION_SEQUENCE}
+       ports:
+       - containerPort: 9090
+       - containerPort: 5050
+       - containerPort: 7070
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: draco-service
+  labels:
+    name: draco
+spec:
+  type: NodePort
+  ports:
+    - port: 9090
+      nodePort: 31333
+      name: data
+    - port: 5050
+      nodePort: 31344
+      name: http
+  selector:
+    name: draco

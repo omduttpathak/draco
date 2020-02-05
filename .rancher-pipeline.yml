@@ -1,0 +1,29 @@
+stages:
+- name: Build
+  steps:
+  - publishImageConfig:
+      dockerfilePath: nifi-ngsi-resources/docker/Dockerfile
+      buildContext: .
+      tag: testing-nifi:${CICD_EXECUTION_SEQUENCE}
+      registry: 192.168.100.176:5000
+    env:
+      PLUGIN_DEBUG: "true"
+      PLUGIN_INSECURE: "true"
+      PLUGIN_STORAGE_PATH: /var/lib/docker2
+    when:
+      branch: {}
+      event: {}
+- name: deploy
+  steps:
+  - applyYamlConfig:
+      path: ./deployment.yaml
+    env:
+      NIFI_WEB_HTTP_PORT: "7070"
+    when:
+      branch: {}
+      event: {}
+timeout: 60
+branch:
+  include:
+  - master
+notification: {}
