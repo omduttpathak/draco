@@ -25,6 +25,17 @@ stages:
       event: {}
   - applyYamlConfig:
       path: ./service.yaml
+- name: test
+  steps:
+  - runScriptConfig:
+      image: python:latest
+      shellScript: |-
+        apt-get update
+        echo Y | apt-get install npm
+        npm -v
+        sleep 300
+        npm install -g newman
+        newman run ./Draco.postman_collection.json
 timeout: 60
 branch:
   include:
