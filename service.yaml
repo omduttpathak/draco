@@ -10,8 +10,8 @@ spec:
   type: NodePort
   ports:
     - port: 9090
-      #nodePort: 30007
-      nodeport: 40190
+      nodePort: 30007
+      #nodeport: 40190
       name: http
   selector:
     name: draco
