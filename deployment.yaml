@@ -14,7 +14,7 @@ spec:
      containers:
      - name: draconifi
        #image: 172.30.76.49:5000/draco:${CICD_EXECUTION_SEQUENCE}
-       image: csp2-centos-1:5000/fiware-nifi:${CICD_EXECUTION_SEQUENCE}
+       image: csp2-centos-1:5000/nifi_test_bare_2:${CICD_EXECUTION_SEQUENCE}
        resources:
          limits:
           memory: "1Gi"
